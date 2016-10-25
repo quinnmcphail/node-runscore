@@ -1,0 +1,22 @@
+{
+  "name": "node-runscore",
+  "version": "0.1.0",
+  "description": "Node module copy of RunScore C++/C# API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quinnmcphail/node-runscore.git"
+  },
+  "keywords": [
+    "runscore"
+  ],
+  "author": "Quinn McPhail <quinnmcphail@me.com> (http://www.quinnmcphail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quinnmcphail/node-runscore/issues"
+  },
+  "homepage": "https://github.com/quinnmcphail/node-runscore#readme"
+}
