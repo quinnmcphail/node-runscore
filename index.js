@@ -2,13 +2,13 @@ var net = require('net');
 var client = new net.Socket();
 var RunScore = function(){};
 
-//	Promise Open(addr,port)
+//	Open(addr,port):Promise
 //
 //	Opens communication with RSServer
 //
-//	String:addr - IP address. Can be numeric or the name of the network node.
-//	Int:port - TCP/IP port
-//	Return - true on success
+//	addr:String - IP address. Can be numeric or the name of the network node.
+//	port:Int - TCP/IP port
+//	Return:Bool - true on success
 
 RunScore.prototype.Open = (addr,port) => {
 	return new Promise((resolve,reject) => {
@@ -17,13 +17,13 @@ RunScore.prototype.Open = (addr,port) => {
 	})
 }
 
-//	Promise login(userid,password,version)
+//	login(userid,password,version):Promise
 //
 //	Login to RSServer. If RSServer does not require a login, this function must still be used.
 //	In that case, the userid and password will be zero-length strings.
 //
-//	String:version - Version of the RSClient
-//	Return - true on success
+//	version:String - Version of the RSClient
+//	Return:Bool - true on success
 
 RunScore.prototype.login = (userid,password,version) => {
 	return new Promise((resolve,reject) => {
@@ -41,11 +41,11 @@ RunScore.prototype.login = (userid,password,version) => {
 	})
 }
 
-//	Promise Close()
+//	Close():Promise
 //
 //	Close the connection.
 //
-//	Return - true on success
+//	Return:Bool - true on success
 
 RunScore.prototype.Close = () => {
 	return new Promise((resolve,reject)=>{
