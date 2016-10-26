@@ -4,7 +4,7 @@
   "description": "Node module copy of RunScore C++/C# API.",
   "main": "index.js",
   "scripts": {
-    "test": "No test specified"
+    "test": "./node_modules/mocha/bin/mocha test"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
     "url": "https://github.com/quinnmcphail/node-runscore/issues"
   },
   "homepage": "https://github.com/quinnmcphail/node-runscore#readme",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^3.1.2"
+  }
 }
