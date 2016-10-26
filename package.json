@@ -1,6 +1,6 @@
 {
   "name": "node-runscore",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Node module copy of RunScore C++/C# API.",
   "main": "index.js",
   "scripts": {
