@@ -6,9 +6,9 @@ var RunScore = function(){};
 //
 //	Opens communication with RSServer
 //
-//	String addr: IP address. Can be numeric or the name of the network node
-//	Int port: TCP/IP port
-//	Return: true on success
+//	String:addr - IP address. Can be numeric or the name of the network node.
+//	Int:port - TCP/IP port
+//	Return - true on success
 
 RunScore.prototype.Open = (addr,port) => {
 	return new Promise((resolve,reject) => {
@@ -22,9 +22,8 @@ RunScore.prototype.Open = (addr,port) => {
 //	Login to RSServer. If RSServer does not require a login, this function must still be used.
 //	In that case, the userid and password will be zero-length strings.
 //
-//
-//
-//	Return: true on success
+//	String:version - Version of the RSClient
+//	Return - true on success
 
 RunScore.prototype.login = (userid,password,version) => {
 	return new Promise((resolve,reject) => {
@@ -46,7 +45,7 @@ RunScore.prototype.login = (userid,password,version) => {
 //
 //	Close the connection.
 //
-//	Return: true on success
+//	Return - true on success
 
 RunScore.prototype.Close = () => {
 	return new Promise((resolve,reject)=>{
@@ -55,16 +54,4 @@ RunScore.prototype.Close = () => {
 	})
 }
 
-// client.on('data', function(data) {
-//   results.push(data)
-//   if (data == 'Entries') {
-//     client.write('GetN_competitors');
-//   }else {
-//     console.log(data.readInt16LE());
-//   }
-// });
-//
-// client.on('close', function() {
-// 	console.log('Connection closed');
-// });
 module.exports = new RunScore();
