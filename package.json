@@ -4,7 +4,7 @@
   "description": "Node module copy of RunScore C++/C# API.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "No test specified"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,6 @@
   "bugs": {
     "url": "https://github.com/quinnmcphail/node-runscore/issues"
   },
-  "homepage": "https://github.com/quinnmcphail/node-runscore#readme"
+  "homepage": "https://github.com/quinnmcphail/node-runscore#readme",
+  "dependencies": {}
 }
