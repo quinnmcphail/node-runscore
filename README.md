@@ -13,9 +13,9 @@ var RSClient = require('node-runscore');
 ### Open(addr,port):Promise
 Opens communication with RSServer.
 
-    addr:String - IP address. Can be numeric or the name of the network node.
-    port:Int - TCP/IP port
-    Return:Bool - true on success
+	addr:String - IP address. Can be numeric or the name of the network node.
+  port:Int - TCP/IP port
+  Return:Bool - true on success
 Example:
 ```javascript
 var RSClient = require('node-runscore');
@@ -31,10 +31,10 @@ RSClient.Open('127.0.0.1',56789).then(function(result){
 ### login(userid,password,version):Promise
 Login to RSServer. If RSServer does not require a login, this function must still be used. In that case, the userid and password will be zero-length strings.
 
-		userid:String - userid for RSServer
-		password:String - password for RSServer
-    version:String - Version of the RSClient
-    Return:Bool - true on success
+	userid:String - userid for RSServer
+	password:String - password for RSServer
+	version:String - Version of the RSClient
+	Return:Bool - true on success
 Example:
 ```javascript
 var RSClient = require('node-runscore');
@@ -49,7 +49,7 @@ RSClient.login('','','8.2.3.0');.then(function(result){
 ### Close():Promise
 Close the connection.
 
-    Return:Bool - true on success
+	Return:Bool - true on success
 Example:
 ```javascript
 var RSClient = require('node-runscore');
