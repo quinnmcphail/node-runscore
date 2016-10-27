@@ -1,5 +1,4 @@
 # node-runscore
-[![Build Status](https://travis-ci.org/quinnmcphail/node-runscore.svg?branch=master)](https://travis-ci.org/quinnmcphail/node-runscore)
 
 Node module copy of RunScore C++/C# API.
 
