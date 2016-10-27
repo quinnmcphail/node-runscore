@@ -38,7 +38,7 @@ Opens communication with RSServer.
   port:Int - TCP/IP port
   Return:Bool - true on success
 Example:
-```javascript
+<!-- ```javascript
 var RSClient = require('node-runscore');
 
 RSClient.Open('127.0.0.1',56789).then(function(result){
@@ -48,7 +48,7 @@ RSClient.Open('127.0.0.1',56789).then(function(result){
 }).catch(function(err){
     console.log(err);
 });
-```
+``` -->
 ### login(userid,password,version):Promise
 Login to RSServer. If RSServer does not require a login, this function must still be used. In that case, the userid and password will be zero-length strings.
 
@@ -57,7 +57,7 @@ Login to RSServer. If RSServer does not require a login, this function must stil
 	version:String - Version of the RSClient
 	Return:Bool - true on success
 Example:
-```javascript
+<!-- ```javascript
 var RSClient = require('node-runscore');
 
 RSClient.login('','','8.2.3.0');.then(function(result){
@@ -65,14 +65,14 @@ RSClient.login('','','8.2.3.0');.then(function(result){
 }).catch(function(err){
     console.log(err);
 });
-```
+``` -->
 
 ### Close():Promise
 Close the connection.
 
 	Return:Bool - true on success
 Example:
-```javascript
+<!-- ```javascript
 var RSClient = require('node-runscore');
 
 RSClient.Close().then(function(result){
@@ -80,7 +80,7 @@ RSClient.Close().then(function(result){
 }).catch(function(err){
     console.log(err);
 });
-```
+``` -->
 
 ### getN_bibs(event):Promise
 Return the number of finishers in "event".
@@ -88,9 +88,9 @@ Return the number of finishers in "event".
 	event:String - RunScore event name
 	Return:Int - Number of finishers in "event"
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### getN_times(event):Promise
 Return the number of times in "event".
@@ -98,27 +98,27 @@ Return the number of times in "event".
 	event:String - RunScore event name
 	Return:Int - Number of times in "event"
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### getN_records():Promise
 Return the number of records in the database. Includes "deleted" records.
 
 	Return:Int - Number of records in the database. Includes "deleted" records.
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### getN_competitors():Promise
 Return the number of actual records in the database not including deleted ones.
 
 	Return:Int - Number of actual records in the database not including deleted ones.
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### findBib(event,start,bib):Promise
 Find where a runner with "bib" number has finished.
@@ -128,9 +128,9 @@ Find where a runner with "bib" number has finished.
 	bib:String - Bib number. Must have the same number of characters as the field.
 	Return:Int - finish place
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### getBib(event,finishPlace):Promise
 Get the bib number for a finisher.
@@ -139,9 +139,9 @@ Get the bib number for a finisher.
 	finishPlace:Int - Finish place.
 	Return:String - Bib number. Has the same number of characters as the field.
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### getTime(event,finishPlace):Promise
 Return the time for a finisher. Time is an integer in units of centiseconds.
@@ -150,9 +150,9 @@ Return the time for a finisher. Time is an integer in units of centiseconds.
 	finishPlace:Int - Finish place. Origin 1.
 	Return:Int - Time in units of centiseconds.
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### getTimes(event,i1,i2):Promise
 Return an array of times (integers in centiseconds)
@@ -162,9 +162,9 @@ Return an array of times (integers in centiseconds)
 	i2:Int - get times finishing at place i2
 	Return:Array[Int] - Time in units of centiseconds.
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### getFins(event,i1,i2):Promise
 Returns indices into database of all finishers
@@ -174,9 +174,9 @@ Returns indices into database of all finishers
 	i2:Int - get indicies finishing at place i2
 	Return:Array[Int] - Indicies into database of all finishers
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### getFin(event,finishPlace):Promise
 Return index of finish.
@@ -185,9 +185,9 @@ Return index of finish.
 	finishPlace:Int - Place of finisher
 	Return:Int - Index of finish
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### getFieldLength(i):Promise
 Returns length of field. NOTE: Only data fields return useful information. A label will return -1 for the length.
@@ -195,9 +195,9 @@ Returns length of field. NOTE: Only data fields return useful information. A lab
 	i:Int - Field number
 	Return:Int - Field length
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### getFieldName(i):Promise
 Returns name of field.
@@ -205,9 +205,9 @@ Returns name of field.
 	i:Int - Field number
 	Return:String - Field name
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### readRecord(i):Promise
 Returns record.
@@ -215,9 +215,9 @@ Returns record.
 	i:Int - record number. Origin 0.
 	Return:Record - Returns record as a Javascript object.
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
 
 ### Srch(fieldno,str,start,wrap):Promise
 Ask the server to search the database for this text in this field.
@@ -228,6 +228,6 @@ Ask the server to search the database for this text in this field.
 	wrap:Bool - If true search to the end to the database. If still not found start over from beginning.
 	Return:Int - Returns record index (Origin 0), -2 if a problem, and -1 if not found.
 Example:
-```javascript
+<!-- ```javascript
 Coming Soon.
-```
+``` -->
