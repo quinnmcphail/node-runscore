@@ -1,35 +1,28 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [node-runscore](#node-runscore)
-  - [Install](#install)
-  - [Usage](#usage)
-  - [Functions](#functions)
-    - [Open(addr,port):Promise](#openaddrportpromise)
-    - [login(userid,password,version):Promise](#loginuseridpasswordversionpromise)
-    - [Close():Promise](#closepromise)
-    - [getN_bibs(event):Promise](#getn_bibseventpromise)
-    - [getN_times(event):Promise](#getn_timeseventpromise)
-    - [getN_records():Promise](#getn_recordspromise)
-    - [getN_competitors():Promise](#getn_competitorspromise)
-    - [findBib(event,start,field,bib):Promise](#findbibeventstartfieldbibpromise)
-    - [getBib(event,finishPlace):Promise](#getbibeventfinishplacepromise)
-    - [getTime(event,finishPlace):Promise](#gettimeeventfinishplacepromise)
-    - [getTimes(event,i1,i2,size):Promise](#gettimeseventi1i2sizepromise)
-    - [getFins(event,i1,i2,size):Promise](#getfinseventi1i2sizepromise)
-    - [getFin(event,i):Promise](#getfineventipromise)
-    - [getFieldLength(i):Promise](#getfieldlengthipromise)
-    - [getFieldName(i):Promise](#getfieldnameipromise)
-    - [readRecord(i):Promise](#readrecordipromise)
-    - [Srch(fieldno,str,start,wrap):Promise](#srchfieldnostrstartwrappromise)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # node-runscore
 [![Build Status](https://travis-ci.org/quinnmcphail/node-runscore.svg?branch=master)](https://travis-ci.org/quinnmcphail/node-runscore)
 
 Node module copy of RunScore C++/C# API.
+
+- [Install](#install)
+- [Usage](#usage)
+- [Functions](#functions)
+  - [Open(addr,port):Promise](#openaddrportpromise)
+  - [login(userid,password,version):Promise](#loginuseridpasswordversionpromise)
+  - [Close():Promise](#closepromise)
+  - [getN_bibs(event):Promise](#getn_bibseventpromise)
+  - [getN_times(event):Promise](#getn_timeseventpromise)
+  - [getN_records():Promise](#getn_recordspromise)
+  - [getN_competitors():Promise](#getn_competitorspromise)
+  - [findBib(event,start,field,bib):Promise](#findbibeventstartfieldbibpromise)
+  - [getBib(event,finishPlace):Promise](#getbibeventfinishplacepromise)
+  - [getTime(event,finishPlace):Promise](#gettimeeventfinishplacepromise)
+  - [getTimes(event,i1,i2,size):Promise](#gettimeseventi1i2sizepromise)
+  - [getFins(event,i1,i2,size):Promise](#getfinseventi1i2sizepromise)
+  - [getFin(event,i):Promise](#getfineventipromise)
+  - [getFieldLength(i):Promise](#getfieldlengthipromise)
+  - [getFieldName(i):Promise](#getfieldnameipromise)
+  - [readRecord(i):Promise](#readrecordipromise)
+  - [Srch(fieldno,str,start,wrap):Promise](#srchfieldnostrstartwrappromise)
 
 ## Install
 	npm install node-runscore
