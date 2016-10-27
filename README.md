@@ -120,12 +120,11 @@ Example:
 Coming Soon.
 ```
 
-### findBib(event,start,field,bib):Promise
+### findBib(event,start,bib):Promise
 Find where a runner with "bib" number has finished.
 
 	event:String - RunScore event name
 	start:Int - Start looking at this place
-	field:Int - Which search field do you want to look in. Bib number is usually field 3. Field 1 is general information, field 2 is typically "NO.".
 	bib:String - Bib number. Must have the same number of characters as the field.
 	Return:Int - finish place
 Example:
@@ -145,47 +144,45 @@ Coming Soon.
 ```
 
 ### getTime(event,finishPlace):Promise
-Return the time for a finisher. Time is an integer in units of 0.01 seconds.
+Return the time for a finisher. Time is an integer in units of centiseconds.
 
 	event:String - RunScore event name
 	finishPlace:Int - Finish place. Origin 1.
-	Return:Int - Time in units of 0.01 seconds.
+	Return:Int - Time in units of centiseconds.
 Example:
 ```javascript
 Coming Soon.
 ```
 
-### getTimes(event,i1,i2,size):Promise
-Return an array of times (integers in 0.01s)
+### getTimes(event,i1,i2):Promise
+Return an array of times (integers in centiseconds)
 
 	event:String - RunScore event name
 	i1:Int - get times starting at place i1
-	i2:Int - get times finishing at place i2-1
-	size:Int - Expected number of finishers
-	Return:Array[Int] - Time in units of 0.01 seconds.
+	i2:Int - get times finishing at place i2
+	Return:Array[Int] - Time in units of centiseconds.
 Example:
 ```javascript
 Coming Soon.
 ```
 
-### getFins(event,i1,i2,size):Promise
+### getFins(event,i1,i2):Promise
 Returns indices into database of all finishers
 
 	event:String - RunScore event name
 	i1:Int - get indicies starting at place i1
-	i2:Int - get indicies finishing at place i2-1
-	size:Int - Expected number of finishers
+	i2:Int - get indicies finishing at place i2
 	Return:Array[Int] - Indicies into database of all finishers
 Example:
 ```javascript
 Coming Soon.
 ```
 
-### getFin(event,i):Promise
+### getFin(event,finishPlace):Promise
 Return index of finish.
 
 	event:String - RunScore event name
-	i:Int - Place of finisher
+	finishPlace:Int - Place of finisher
 	Return:Int - Index of finish
 Example:
 ```javascript
