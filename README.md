@@ -87,8 +87,8 @@ Return the number of finishers in "event".
 
 	event:String - RunScore event name
 	Return:Int - Number of finishers in "event"
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -97,8 +97,8 @@ Return the number of times in "event".
 
 	event:String - RunScore event name
 	Return:Int - Number of times in "event"
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -106,8 +106,8 @@ Coming Soon.
 Return the number of records in the database. Includes "deleted" records.
 
 	Return:Int - Number of records in the database. Includes "deleted" records.
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -115,8 +115,8 @@ Coming Soon.
 Return the number of actual records in the database not including deleted ones.
 
 	Return:Int - Number of actual records in the database not including deleted ones.
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -127,8 +127,8 @@ Find where a runner with "bib" number has finished.
 	start:Int - Start looking at this place
 	bib:String - Bib number. Must have the same number of characters as the field.
 	Return:Int - finish place
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -138,8 +138,8 @@ Get the bib number for a finisher.
 	event:String - RunScore event name
 	finishPlace:Int - Finish place.
 	Return:String - Bib number. Has the same number of characters as the field.
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -149,8 +149,8 @@ Return the time for a finisher. Time is an integer in units of centiseconds.
 	event:String - RunScore event name
 	finishPlace:Int - Finish place. Origin 1.
 	Return:Int - Time in units of centiseconds.
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -161,8 +161,8 @@ Return an array of times (integers in centiseconds)
 	i1:Int - get times starting at place i1
 	i2:Int - get times finishing at place i2
 	Return:Array[Int] - Time in units of centiseconds.
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -173,8 +173,8 @@ Returns indices into database of all finishers
 	i1:Int - get indicies starting at place i1
 	i2:Int - get indicies finishing at place i2
 	Return:Array[Int] - Indicies into database of all finishers
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -184,8 +184,8 @@ Return index of finish.
 	event:String - RunScore event name
 	finishPlace:Int - Place of finisher
 	Return:Int - Index of finish
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -194,8 +194,8 @@ Returns length of field. NOTE: Only data fields return useful information. A lab
 
 	i:Int - Field number
 	Return:Int - Field length
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -204,8 +204,8 @@ Returns name of field.
 
 	i:Int - Field number
 	Return:String - Field name
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -214,8 +214,8 @@ Returns record.
 
 	i:Int - record number. Origin 0.
 	Return:Record - Returns record as a Javascript object.
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
 
@@ -227,7 +227,7 @@ Ask the server to search the database for this text in this field.
 	start:Int - Index to start search at.
 	wrap:Bool - If true search to the end to the database. If still not found start over from beginning.
 	Return:Int - Returns record index (Origin 0), -2 if a problem, and -1 if not found.
-Example:
-<!-- ```javascript
+<!-- Example:
+```javascript
 Coming Soon.
 ``` -->
