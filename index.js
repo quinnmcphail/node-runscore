@@ -13,7 +13,27 @@ var RunScore = function(){};
 RunScore.prototype.Open = (addr,port) => {
 	return new Promise((resolve,reject) => {
 		client.connect(port, addr, ()=>resolve(true));
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data', ondata(data))
+	  client.on('error', onerror(err))
+	  client.on('end', cleanup)
+
+	  // define all functions in scope
+	  // so they can be referenced by cleanup and vice-versa
+	  function ondata(data) {
+	    cleanup()
+	  }
+
+	  function onerror(err) {
+	    cleanup()
+	    reject(Error(err))
+	  }
+
+	  function cleanup() {
+	    // remove all event listeners created in this promise
+	    stream.removeListener('data', ondata)
+	    stream.removeListener('error', onerror)
+	    stream.removeListener('end', cleanup)
+	  }
 	})
 }
 
@@ -28,7 +48,16 @@ RunScore.prototype.Open = (addr,port) => {
 RunScore.prototype.login = (userid,password,version) => {
 	return new Promise((resolve,reject) => {
 		client.write(`Hello|Version ${version}`);
-		client.on('data',(data)=>{
+		// client.on('data',(data)=>{
+		//
+		// })
+		client.on('data', ondata(data))
+	  client.on('error', onerror(err))
+	  client.on('end', cleanup)
+
+	  // define all functions in scope
+	  // so they can be referenced by cleanup and vice-versa
+	  function ondata(data) {
 			if(data.toString().includes('WARNING')){
 				reject(Error('Version Mismatch: '+ data.toString()));
 			}else if (data.toString().includes('LogonRequired')) {
@@ -36,8 +65,20 @@ RunScore.prototype.login = (userid,password,version) => {
 			}else {
 				resolve(true);
 			}
-		})
-		client.on('error',(err)=>reject(Error(err)));
+	    cleanup()
+	  }
+
+	  function onerror(err) {
+	    cleanup()
+	    reject(Error(err))
+	  }
+
+	  function cleanup() {
+	    // remove all event listeners created in this promise
+	    stream.removeListener('data', ondata)
+	    stream.removeListener('error', onerror)
+	    stream.removeListener('end', cleanup)
+	  }
 	})
 }
 
@@ -354,7 +395,6 @@ RunScore.prototype.Srch = (fieldno,str,start,wrap) => {
 		client.on('data',(data)=>{
 			resolve(data.toString().split('|')[1]);
 		})
-		client.on('error',(err)=>reject(Error(err)));
 	})
 }
 
