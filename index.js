@@ -13,27 +13,16 @@ var RunScore = function(){};
 RunScore.prototype.Open = (addr,port) => {
 	return new Promise((resolve,reject) => {
 		client.connect(port, addr, ()=>resolve(true));
-		client.on('data', ondata(data))
-	  client.on('error', onerror(err))
-	  client.on('end', cleanup)
-
-	  // define all functions in scope
-	  // so they can be referenced by cleanup and vice-versa
-	  function ondata(data) {
-	    cleanup()
-	  }
-
-	  function onerror(err) {
-	    cleanup()
-	    reject(Error(err))
-	  }
-
-	  function cleanup() {
-	    // remove all event listeners created in this promise
-	    stream.removeListener('data', ondata)
-	    stream.removeListener('error', onerror)
-	    stream.removeListener('end', cleanup)
-	  }
+		client.on('error',errorListener);
+		function errorListener(err){
+		cleanup();
+			reject(Error(err));
+		}
+		function cleanup() {
+    // remove all event listeners created in this promise
+    client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+  }
 	})
 }
 
@@ -48,37 +37,28 @@ RunScore.prototype.Open = (addr,port) => {
 RunScore.prototype.login = (userid,password,version) => {
 	return new Promise((resolve,reject) => {
 		client.write(`Hello|Version ${version}`);
-		// client.on('data',(data)=>{
-		//
-		// })
-		client.on('data', ondata(data))
-	  client.on('error', onerror(err))
-	  client.on('end', cleanup)
-
-	  // define all functions in scope
-	  // so they can be referenced by cleanup and vice-versa
-	  function ondata(data) {
-			if(data.toString().includes('WARNING')){
-				reject(Error('Version Mismatch: '+ data.toString()));
-			}else if (data.toString().includes('LogonRequired')) {
-				client.write(`Logon|${userid}|${password}|end`);
-			}else {
-				resolve(true);
-			}
-	    cleanup()
-	  }
-
-	  function onerror(err) {
-	    cleanup()
-	    reject(Error(err))
-	  }
-
-	  function cleanup() {
-	    // remove all event listeners created in this promise
-	    stream.removeListener('data', ondata)
-	    stream.removeListener('error', onerror)
-	    stream.removeListener('end', cleanup)
-	  }
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		if(data.toString().includes('WARNING')){
+			reject(Error('Version Mismatch: '+ data.toString()));
+		}else if (data.toString().includes('LogonRequired')) {
+			client.write(`Logon|${userid}|${password}|end`);
+		}else {
+			cleanup();
+			resolve(true);
+		}
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -90,6 +70,7 @@ RunScore.prototype.login = (userid,password,version) => {
 
 RunScore.prototype.Close = () => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.end();
 		resolve(true);
 	})
@@ -104,11 +85,24 @@ RunScore.prototype.Close = () => {
 
 RunScore.prototype.getN_bibs = (event) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.write(`Results|${event}|getN_bibs`)
-		client.on('data',(data)=>{
-			resolve(data.readInt16LE());
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		cleanup();
+		resolve(data.readInt16LE());
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -121,11 +115,24 @@ RunScore.prototype.getN_bibs = (event) => {
 
 RunScore.prototype.getN_times = (event) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.write(`Results|${event}|getN_times`)
-		client.on('data',(data)=>{
-			resolve(data.readInt16LE());
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		cleanup();
+		resolve(data.readInt16LE());
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -137,11 +144,24 @@ RunScore.prototype.getN_times = (event) => {
 
 RunScore.prototype.getN_records = () => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.write(`GetN_records`)
-		client.on('data',(data)=>{
-			resolve(data.readInt16LE());
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		cleanup();
+		resolve(data.readInt16LE());
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -153,11 +173,24 @@ RunScore.prototype.getN_records = () => {
 
 RunScore.prototype.getN_competitors = () => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.write(`GetN_competitors`)
-		client.on('data',(data)=>{
-			resolve(data.readInt16LE());
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		cleanup();
+		resolve(data.readInt16LE());
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -172,17 +205,30 @@ RunScore.prototype.getN_competitors = () => {
 
 RunScore.prototype.findBib = (event,start,bib) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.write('GetBibFieldNo');
 		var bibLoc = 0;
-		client.on('data',(data)=>{
-			if(bibLoc){
-				resolve(data.readInt16LE());
-			}else {
-				bibLoc = data.readInt16LE();
-				client.write(`Results|${event}|findBib|${start}|${bibLoc}|${bib}`);
-			}
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		if(bibLoc){
+			resolve(data.readInt16LE());
+			cleanup();
+		}else {
+			bibLoc = data.readInt16LE();
+			client.write(`Results|${event}|findBib|${start}|${bibLoc}|${bib}`);
+		}
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -196,11 +242,24 @@ RunScore.prototype.findBib = (event,start,bib) => {
 
 RunScore.prototype.getBib = (event,finishPlace) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.write(`Results|${event}|getBib|${finishPlace}`)
-		client.on('data',(data)=>{
-			resolve(data.toString());
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		cleanup();
+		resolve(data.toString());
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -214,11 +273,24 @@ RunScore.prototype.getBib = (event,finishPlace) => {
 
 RunScore.prototype.getTime = (event,finishPlace) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.write(`Results|${event}|getTime|${finishPlace}`)
-		client.on('data',(data)=>{
-			resolve(data.readInt32LE());
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		cleanup();
+		resolve(data.readInt32LE());
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -233,18 +305,31 @@ RunScore.prototype.getTime = (event,finishPlace) => {
 
 RunScore.prototype.getTimes = (event,i1,i2) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		var times = []
 		var i = i1;
 		client.write(`Results|${event}|getTime|${i}`);
-		client.on('data',(data)=>{
-			times.push(data.readInt32LE());
-			i++;
-			client.write(`Results|${event}|getTime|${i}`);
-			 if(times.length == i2){
-			 	resolve(times);
-			 }
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		times.push(data.readInt32LE());
+		i++;
+		client.write(`Results|${event}|getTime|${i}`);
+		 if(times.length == i2){
+			 cleanup();
+			 resolve(times);
+		 }
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -259,18 +344,31 @@ RunScore.prototype.getTimes = (event,i1,i2) => {
 
 RunScore.prototype.getFins = (event,i1,i2) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		var indicies = []
 		var i = i1;
 		client.write(`Results|${event}|getFin|${i}`);
-		client.on('data',(data)=>{
-			indicies.push(data.readInt32LE());
-			i++;
-			client.write(`Results|${event}|getFin|${i}`);
-			 if(indicies.length == i2){
-			 	resolve(indicies);
-			 }
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+  reject(Error(err));
+	cleanup();
+}
+function listener(data){
+		indicies.push(data.readInt32LE());
+		i++;
+		client.write(`Results|${event}|getFin|${i}`);
+		 if(indicies.length == i2){
+			cleanup();
+			resolve(indicies);
+		 }
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -284,11 +382,24 @@ RunScore.prototype.getFins = (event,i1,i2) => {
 
 RunScore.prototype.getFin = (event,finishPlace) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.write(`Results|${event}|getFin|${finishPlace}`)
-		client.on('data',(data)=>{
-			resolve(data.readInt32LE());
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		cleanup();
+		resolve(data.readInt32LE());
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -301,11 +412,24 @@ RunScore.prototype.getFin = (event,finishPlace) => {
 
 RunScore.prototype.getFieldLength = (i) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.write(`GetFieldLength|${i}`)
-		client.on('data',(data)=>{
-			resolve(data.readInt16LE());
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		cleanup();
+		resolve(data.readInt16LE());
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -318,11 +442,24 @@ RunScore.prototype.getFieldLength = (i) => {
 
 RunScore.prototype.getFieldName = (i) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.write(`GetFieldName|${i}`)
-		client.on('data',(data)=>{
-			resolve(data.toString());
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		cleanup();
+		resolve(data.toString());
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -335,6 +472,7 @@ RunScore.prototype.getFieldName = (i) => {
 
 RunScore.prototype.readRecord = (i) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		var fields = 0;
 		var Record = {};
 		var recordString = 0;
@@ -342,40 +480,52 @@ RunScore.prototype.readRecord = (i) => {
 		var fieldName = 0;
 		var fieldNumber = 0;
 		client.write('GetNoOfFields');
-		client.on('data',(data)=>{
-			if (fields) {
-				if (recordString) {
-					if(fieldLength){
-						fieldName=data.toString();
-						Record[fieldName] = recordString.slice(0,fieldLength).trim();
-						recordString = recordString.slice(fieldLength);
-						if (fieldNumber==fields) {
-							resolve(Record);
-						}
-						fieldName = 0;
-						fieldLength = 0;
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+		if (fields) {
+			if (recordString) {
+				if(fieldLength){
+					fieldName=data.toString();
+					Record[fieldName] = recordString.slice(0,fieldLength).trim();
+					recordString = recordString.slice(fieldLength);
+					if (fieldNumber==fields) {
+						cleanup();
+						resolve(Record);
+					}
+					fieldName = 0;
+					fieldLength = 0;
+					fieldNumber++;
+					client.write(`GetFieldLength|${fieldNumber}`);
+				}else {
+					fieldLength=data.readInt16LE();
+					if (fieldLength<0) {
+						fieldLength=0;
 						fieldNumber++;
 						client.write(`GetFieldLength|${fieldNumber}`);
 					}else {
-						fieldLength=data.readInt16LE();
-						if (fieldLength<0) {
-							fieldLength=0;
-							fieldNumber++;
-							client.write(`GetFieldLength|${fieldNumber}`);
-						}else {
-							client.write(`GetFieldName|${fieldNumber}`);
-						}
+						client.write(`GetFieldName|${fieldNumber}`);
 					}
-				}else {
-					recordString = data.toString();
-					client.write(`GetFieldLength|${fieldNumber}`);
 				}
 			}else {
-				fields = data.readInt16LE();
-				client.write(`ReadRec|${i}`);
+				recordString = data.toString();
+				client.write(`GetFieldLength|${fieldNumber}`);
 			}
-		})
-		client.on('error',(err)=>reject(Error(err)));
+		}else {
+			fields = data.readInt16LE();
+			client.write(`ReadRec|${i}`);
+		}
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
@@ -391,11 +541,105 @@ RunScore.prototype.readRecord = (i) => {
 
 RunScore.prototype.Srch = (fieldno,str,start,wrap) => {
 	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
 		client.write(`Enter|Srch|${fieldno}|${start}|${str}|${wrap}`)
-		client.on('data',(data)=>{
-			resolve(data.toString().split('|')[1]);
-		})
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+  reject(Error(err));
+	cleanup();
+}
+function listener(data){
+		resolve(data.toString().split('|')[1]);
+		cleanup();
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
 	})
 }
 
+//	readRecords(Array[i:Int]):Promise
+//
+//	Returns array of records.
+//
+//	i:Int - record number. Origin 0.
+//	Return:Array[Record] - Returns record as a Javascript object.
+
+RunScore.prototype.readRecords = (i) => {
+	return new Promise((resolve,reject)=>{
+  client.setMaxListeners(client.getMaxListeners() + 1)
+		var fields = 0;
+		var Record = {};
+		var recordArray = [];
+		var recordString = 0;
+		var fieldLength = 0;
+		var fieldName = 0;
+		var fieldNumber = 0;
+		var currentRec = 0;
+		client.write('GetNoOfFields');
+		client.on('data',listener)
+		client.on('error',errorListener);
+function errorListener(err){
+		cleanup();
+  reject(Error(err));
+}
+function listener(data){
+	if (data.readInt16LE()==0) {
+		return
+	}
+		if (fields) {
+				if (recordString) {
+					if(fieldLength){
+						fieldName=data.toString();
+						Record[fieldName] = recordString.slice(0,fieldLength).trim();
+						recordString = recordString.slice(fieldLength);
+						if (fieldNumber==fields) {
+							recordArray.push(Record);
+							if(recordArray.length==i.length){
+								cleanup();
+								resolve(recordArray);
+							}
+							fieldName = 0;
+							fieldLength = 0;
+							fieldNumber = 0;
+							recordString = 0;
+							currentRec++;
+							client.write(`ReadRec|${i[currentRec]}`);
+						}else {
+							fieldName = 0;
+							fieldLength = 0;
+							fieldNumber++;
+							client.write(`GetFieldLength|${fieldNumber}`);
+						}
+					}else {
+						fieldLength=data.readInt16LE();
+						if (fieldLength<0) {
+							fieldLength=0;
+							fieldNumber++;
+							client.write(`GetFieldLength|${fieldNumber}`);
+						}else {
+							client.write(`GetFieldName|${fieldNumber}`);
+						}
+					}
+				}else {
+					recordString = data.toString();
+					client.write(`GetFieldLength|${fieldNumber}`);
+				}
+		}else {
+			fields = data.readInt16LE();
+			client.write(`ReadRec|${i[currentRec]}`);
+		}
+}
+function cleanup() {
+// remove all event listeners created in this promise
+client.removeListener('data', listener)
+client.removeListener('error', errorListener)
+client.setMaxListeners(client.getMaxListeners() - 1)
+}
+	})
+}
 module.exports = new RunScore();

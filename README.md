@@ -15,13 +15,14 @@ Node module copy of RunScore C++/C# API.
   - [findBib(event,start,field,bib):Promise](#findbibeventstartfieldbibpromise)
   - [getBib(event,finishPlace):Promise](#getbibeventfinishplacepromise)
   - [getTime(event,finishPlace):Promise](#gettimeeventfinishplacepromise)
-  - [getTimes(event,i1,i2,size):Promise](#gettimeseventi1i2sizepromise)
-  - [getFins(event,i1,i2,size):Promise](#getfinseventi1i2sizepromise)
+  - [getTimes(event,i1,i2):Promise](#gettimeseventi1i2promise)
+  - [getFins(event,i1,i2):Promise](#getfinseventi1i2promise)
   - [getFin(event,i):Promise](#getfineventipromise)
   - [getFieldLength(i):Promise](#getfieldlengthipromise)
   - [getFieldName(i):Promise](#getfieldnameipromise)
   - [readRecord(i):Promise](#readrecordipromise)
   - [Srch(fieldno,str,start,wrap):Promise](#srchfieldnostrstartwrappromise)
+  - [readRecords(i):Promise](#readrecordsipromise)
 
 ## Install
 	npm install node-runscore
@@ -226,6 +227,16 @@ Ask the server to search the database for this text in this field.
 	start:Int - Index to start search at.
 	wrap:Bool - If true search to the end to the database. If still not found start over from beginning.
 	Return:Int - Returns record index (Origin 0), -2 if a problem, and -1 if not found.
+<!-- Example:
+```javascript
+Coming Soon.
+``` -->
+
+## readRecords(Array[i:Int]):Promise
+Returns array of records.
+
+  i:Int - record number. Origin 0.
+  Return:Array[Record] - Returns record as a Javascript object.
 <!-- Example:
 ```javascript
 Coming Soon.
